@@ -2,7 +2,7 @@
 
 int main(int argc, char **argv){
 
-    ros::init(argc, argv, "test_node");
+    ros::init(argc, argv, "main");
 
     ROS_INFO("%s", "Running second_project test node");
 
