@@ -11,7 +11,5 @@ catkin_package()
 ## Build
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-
-add_executable(main src/main.cpp)
-target_link_libraries(main ${catkin_LIBRARIES})
-
+add_executable(convert_odom_to_tf src/convert_odom_to_tf.cpp)
+target_link_libraries(convert_odom_to_tf ${catkin_LIBRARIES})
