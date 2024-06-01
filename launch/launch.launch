@@ -1,5 +1,0 @@
-<launch>
-<node pkg="rviz" type="rviz" name="rviz" />
-<node pkg="second_project" type = "main" name = "main" output="screen" />
-
-</launch>
