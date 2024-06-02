@@ -1,6 +1,7 @@
 #include "ros/ros.h"
 #include "nav_msgs/Odometry.h"
 #include "std_msgs/String.h"
+#include "sensor_msgs/PointCloud2.h"
 #include <tf/transform_broadcaster.h>
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
@@ -23,9 +24,9 @@ void callback(const nav_msgs::Odometry::ConstPtr& msg){
                     msg->pose.pose.orientation.z,
                     msg->pose.pose.orientation.w);
   transform.setRotation(q);
-  ros::Time time = msg->header.stamp;
+  ros::Time time = msg->header.stamp;  
   br.sendTransform(tf::StampedTransform(transform, time, root_frame, child_frame));
-  };
+}
 
 private:
   ros::NodeHandle n;

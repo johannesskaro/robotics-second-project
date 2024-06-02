@@ -1,36 +1,46 @@
 <launch>
 
-  <!-- Launch the async_slam_toolbox node
+  <!-- Launch either slam_toolbox or gmapping -->
+
+  <!-- Launch the async_slam_toolbox node -->
   <node pkg="slam_toolbox" type="async_slam_toolbox_node" name="slam_toolbox" output="screen">
     <rosparam command="load" file="$(find second_project)/config/task1_mapper_params_online_async.yaml" />
   </node>
-  -->
 
-  <!-- Launch the gmapping node -->
+  <!-- Launch the gmapping node 
   <node pkg="gmapping" type="slam_gmapping" name="gmapping" output="screen">
-    <remap from="scan" to="base_scan" />
+    <remap from="scan" to="/base_scan" />
     <param name="xmax" value="5"/>
     <param name="ymax" value="5"/>
     <param name="xmin" value="-5"/>
     <param name="ymin" value="-5"/>
     <param name="delta" value="0.05"/>
+    <param name="base_frame" value="UGV_base_link"/>
+    <param name="odom_frame" value="UGV_odom"/>
   </node>
+  -->
+
 
   <!-- Launch the odom_to_tf node -->
   <node pkg="second_project" type = "convert_odom_to_tf" name = "odom_of_encoders" output="screen">
     <remap from="/input_odom" to="/ugv/odom"  />
-    <param name="root_frame" type="str" value="map" />
+    <param name="root_frame" type="str" value="UGV_odom" />
     <param name="child_frame" type="str" value="UGV_base_link" />
   </node>
 
+  <!-- Launch scan tf broadcaster, assume rslidar is located at UGV_base_link -->
+  <node pkg="tf" type="static_transform_publisher" name="rslidar_broadcaster" args="0 0 0 0 0 0 1 UGV_base_link rslidar 100" />
+
   <!-- Launch the pointcloud_to_laserscan node -->
-  <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan">
-    <param name="input_cloud_topic" value="/ugv/rslidar_points"/>
-    <param name="output_scan_topic" value="/base_scan"/>
-    <param name="target_frame" value="base_footprint"/>
+  <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan" output="screen">
+    <remap from="cloud_in" to="/ugv/rslidar_points"/>
+    <remap from="scan" to="/base_scan"/>
+    <param name="target_frame" value="rslidar"/>
   </node>
 
   <!--  **************** Visualisation ****************  -->
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find second_project)/rviz/task1.rviz"/>
+
+  <param name="use_sim_time" value="true"/>
 
 </launch>

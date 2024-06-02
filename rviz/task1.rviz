@@ -89,7 +89,7 @@ Visualization Manager:
       Selectable: true
       Size (Pixels): 3
       Size (m): 0.009999999776482582
-      Style: Squares
+      Style: Points
       Topic: /base_scan
       Unreliable: false
       Use Fixed Frame: true
