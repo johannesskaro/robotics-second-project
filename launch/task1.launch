@@ -1,6 +1,6 @@
 <launch>
 
-  <!-- Launch either slam_toolbox or gmapping -->
+  <!-- Launch either slam_toolbox or gmapping. Comment out the other one. -->
 
   <!-- Launch the async_slam_toolbox node -->
   <node pkg="slam_toolbox" type="async_slam_toolbox_node" name="slam_toolbox" output="screen">
