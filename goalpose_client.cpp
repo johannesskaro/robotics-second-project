@@ -26,7 +26,7 @@ std::vector<move_base_msgs::MoveBaseGoal> readGoalsFromCSV(const std::string& fi
     std::string line;
     while (std::getline(file, line)) {
         std::stringstream ss(line);
-        std::string x_str, y_str, z_str;
+        std::string x_str, y_str, w_str;
 
         if (std::getline(ss, x_str, ',') &&
             std::getline(ss, y_str, ',') &&
@@ -37,7 +37,7 @@ std::vector<move_base_msgs::MoveBaseGoal> readGoalsFromCSV(const std::string& fi
             goal.target_pose.pose.position.x = std::stod(x_str);
             goal.target_pose.pose.position.y = std::stod(y_str);
             goal.target_pose.pose.position.z = 0.0;
-            goal.target_pose.pose.orientation.w = std::stod(y_str);
+            goal.target_pose.pose.orientation.w = std::stod(w_str); // hier noch nicht sicher mit der Darstellung
             // Add the goal to the vector
             goals.push_back(goal);
         }
@@ -52,7 +52,7 @@ int main(int argc, char** argv) {
     ros::NodeHandle nh;
 
     // Path to the CSV file containing goals
-    std::string file_path = "./waypoints.csv"; // Adjust the path accordingly
+    std::string file_path = "./waypoints.csv"; // Adjust the path accordingly -- Schauen, dass der Pfad stimmt
 
     // Read goals from CSV file
     std::vector<move_base_msgs::MoveBaseGoal> goals = readGoalsFromCSV(file_path);
