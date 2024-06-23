@@ -13,3 +13,5 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 
 add_executable(convert_odom_to_tf src/convert_odom_to_tf.cpp)
 target_link_libraries(convert_odom_to_tf ${catkin_LIBRARIES})
+add_executable(goalpose_client /goalpose_client.cpp)
+target_link_libraries(goalpose_client ${catkin_LIBRARIES})
