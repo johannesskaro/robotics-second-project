@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
     ros::NodeHandle nh;
 
     // Path to the CSV file containing goals
-    std::string file_path = "/waypoints.csv"; // Adjust the path accordingly -- Schauen, dass der Pfad stimmt
+    std::string file_path = "waypoints.csv"; // Adjust the path accordingly -- Schauen, dass der Pfad stimmt
 
     // Read goals from CSV file
     std::vector<move_base_msgs::MoveBaseGoal> goals = readGoalsFromCSV(file_path);
